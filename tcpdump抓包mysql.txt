@@ -1,0 +1,49 @@
+查看端口占用和进程名字
+    lsof -i:3306
+    lsof -i
+
+    netstat -tunlp | grep 3306
+
+    ps -aux | grep 33060
+
+tcpdump
+    tcpdump -i eth0 -s 0 -w query_delay.pcap 'src 192.168.1.100 and port 3306'
+    -i 指定网卡
+    -s 完整包
+    -w 生辰文件
+    'src 192.168.1.100 and port 3306' 过滤条件
+    'port 3306' 过滤条件
+    'port 3306 or port 33060'
+    'tcp port 3306'
+
+抓包命令
+    tcpdump -i lo -s 0 -w query_delay.pcap 'tcp port 3306'
+
+查看网卡
+     ifconfig -a
+     ip addr
+
+TCPsegment就是大端存储的
+    可以在wireshark中使用3306端口对应的0cea来验证,正好是低地址对应高位,是3306
+
+mysql协议
+    | 3字节长度 | 1字节序列号 | 变长Payload |
+
+
+一个测试例程
+    ../bin/mysql -h 127.0.0.1 -u root
+    show databases;
+    use mdbtest;
+    show tables;
+    desc mtbt1;
+    insert into mtbt1 values (1),(2),(3);
+    select * from mtbt1;
+    \q
+
+抓包之后需要排查的问题(先启动tcpdump,然后完整运行一个测试例程,一段时间后结束tcpdump)
+    0.MYSQL协议包的具体的内容不是我们关心的重点
+    1.一个连接中相邻两个包之间的gap时间是否合理(是否拥塞)
+    2.包是否有很多的重传
+    3.是否有很多类似RES之类的异常包
+    4.连接是否完整,是否被中断
+    5.整体连接的一个时常
