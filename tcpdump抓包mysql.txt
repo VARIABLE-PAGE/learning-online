@@ -31,7 +31,10 @@ mysql协议
 
 
 一个测试例程
-    ../bin/mysql -h 127.0.0.1 -u root
+    配置文件中 tls_version = "" # 完全禁用 TLS/SSL
+    配置文件中 admin_tls_version = "" # 完全禁用 TLS/SSL
+    启动mysqld服务 ../bin/mysqld --defaults-file=my.cnf &
+    连接mysqld实例 ../bin/mysql -h 127.0.0.1 -u root
     show databases;
     use mdbtest;
     show tables;
