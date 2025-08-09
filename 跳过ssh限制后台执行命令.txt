@@ -1,0 +1,5 @@
+screen -S mysql_session   # 创建会话
+mysql -u user -p          # 在会话中执行查询
+nohup mysql -u <用户名> -p<密码> <数据库名> < /path/to/file.sql > /path/to/output.log 2>&1 &
+Ctrl+A → D                # 分离会话（查询继续运行）
+screen -r mysql_session   # 重连查看结果
