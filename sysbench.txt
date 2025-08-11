@@ -1,0 +1,14 @@
+./sysbench oltp_read_write --db-driver=mysql --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-user=root --mysql-db=mdbtest --threads=36 --time=120 --report-interval=5 --table-size=100000 --tables=10 prepare
+./sysbench oltp_read_write --db-driver=mysql --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-user=root --mysql-db=mdbtest --threads=36 --time=120 --report-interval=5 --table-size=100000 --tables=10 run
+sysbench oltp_read_write --db-driver=mysql --mysql-host=127.0.0.1 --mysql-port=21382 --mysql-user=root --mysql-password=tencent@123 --mysql-db=sbtest --threads=36 --time=120 --report-interval=5 --table-size=100000 --tables=10 run
+## 安装sysbench
+ - 安装依赖：`yum -y install make automake libtool pkgconfig libaio-devel openssl-devel mysql-devel`
+ - 进入源码目录：`cd /usr/src/`
+ - 获取源码包：`wget https://github.com/akopytov/sysbench/archive/refs/tags/1.0.20.tar.gz`
+ - 解压源码包：`tar xvf 1.0.20.tar.gz`
+ - 进入目录：`cd sysbench-1.0.20/`
+ - 运行脚本：
+  - 文件生成：`./autogen.sh`
+  - 配置检查：`./configure`
+ - 编译源码：`make -j`
+ - 安装源码：`make install`
